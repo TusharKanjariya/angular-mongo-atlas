@@ -1,0 +1,174 @@
+<div class="container mt-5">
+  <!-- Header Row Start -->
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6 p-2 text-center bg-light">
+      <h3>Signup</h3>
+    </div>
+    <div class="col-md-3"></div>
+  </div>
+  <!-- Header Row Start End -->
+  <!-- Form Row -->
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6 bg-light">
+      <!-- Success Alert -->
+      <div
+        class="alert alert-info alert-dismissible fade show"
+        role="alert"
+        *ngIf="showStatus"
+      >
+        <strong>Signup Successful</strong>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!-- Success Alert End -->
+      <!-- Failed Alert -->
+      <div
+        class="alert alert-danger alert-dismissible fade show"
+        role="alert"
+        *ngIf="showStatus === false"
+      >
+        <strong>Signup Failed</strong>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!-- Failed Alert -->
+
+      <form [formGroup]="signupForm" (ngSubmit)="submitData()">
+        <div class="form-group">
+          <label for="fname">First Name</label>
+          <input
+            type="email"
+            class="form-control"
+            id="fname"
+            aria-describedby="fnameHelp"
+            formControlName="fname"
+            [ngClass]="controls.fname.valid ? 'is-valid' : ''"
+          />
+          <small
+            id="passHelp"
+            class="form-text text-danger"
+            *ngIf="
+              !controls.fname.valid &&
+              (controls.fname.dirty || controls.fname.touched)
+            "
+            >This field is Required</small
+          >
+        </div>
+        <div class="form-group">
+          <label for="lname">Last name</label>
+          <input
+            type="email"
+            class="form-control"
+            id="lname"
+            aria-describedby="lnameHelp"
+            formControlName="lname"
+            [ngClass]="controls.lname.valid ? 'is-valid' : ''"
+          />
+          <small
+            id="passHelp"
+            class="form-text text-danger"
+            *ngIf="
+              !controls.lname.valid &&
+              (controls.lname.dirty || controls.lname.touched)
+            "
+            >This field is Required</small
+          >
+        </div>
+        <div class="form-group">
+          <label for="mail">Email address</label>
+          <input
+            type="email"
+            class="form-control"
+            id="mail"
+            aria-describedby="emailHelp"
+            formControlName="email"
+            [ngClass]="controls.email.valid ? 'is-valid' : ''"
+          />
+          <small
+            id="passHelp"
+            class="form-text text-danger"
+            *ngIf="
+              !controls.email.valid &&
+              (controls.email.dirty || controls.email.touched)
+            "
+            >This field is Required</small
+          >
+        </div>
+        <div class="form-group">
+          <label for="pass">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="pass"
+            aria-describedby="passHelp"
+            formControlName="password"
+            [ngClass]="controls.password.valid ? 'is-valid' : ''"
+          />
+          <small
+            id="passHelp"
+            class="form-text text-danger"
+            *ngIf="
+              !controls.password.valid &&
+              (controls.password.dirty || controls.password.touched)
+            "
+            >Password length should be minimum 6 characters.</small
+          >
+        </div>
+        <div class="form-group">
+          <label for="passion">Passion</label>
+          <input
+            type="text"
+            class="form-control"
+            id="passion"
+            aria-describedby="passHelp"
+            formControlName="passion"
+            [ngClass]="controls.passion.valid ? 'is-valid' : ''"
+          />
+          <small id="passHelp" class="form-text text-muted"
+            >Ex: Graphic Designer, UI/UX Designer, etc ...</small
+          >
+          <small
+            class="form-text text-danger"
+            *ngIf="
+              !controls.passion.valid &&
+              (controls.passion.dirty || controls.passion.touched)
+            "
+            >Password length should be minimum 6 characters.</small
+          >
+        </div>
+        <button
+          type="submit"
+          class="btn btn-primary mb-3"
+          [disabled]="!signupForm.valid"
+        >
+          <span
+            class="spinner-border spinner-border-sm"
+            role="status"
+            aria-hidden="true"
+            *ngIf="showLoader"
+          ></span>
+          Signup
+        </button>
+        <span class="float-right">
+          Already have an account ? <a routerLink="/login">Login</a>
+        </span>
+      </form>
+    </div>
+    <div class="col-md-3"></div>
+  </div>
+  <!-- Form Row End-->
+</div>

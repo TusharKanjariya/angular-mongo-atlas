@@ -1,0 +1,107 @@
+<div class="container mt-5">
+  <!-- Header Row Start -->
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6 p-2 text-center bg-light">
+      <h3>Login</h3>
+    </div>
+    <div class="col-md-3"></div>
+  </div>
+  <!-- Header Row Start End -->
+  <!-- Form Row -->
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6 bg-light">
+      <!-- Success Alert -->
+      <div
+        class="alert alert-info alert-dismissible fade show"
+        role="alert"
+        *ngIf="showMessage"
+      >
+        <strong>Login Successful</strong>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!-- Success Alert End -->
+      <!-- Failed Alert -->
+      <div
+        class="alert alert-danger alert-dismissible fade show"
+        role="alert"
+        *ngIf="showMessage === false"
+      >
+        <strong>Username or Password is Invalid</strong>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!-- Failed Alert -->
+
+      <form [formGroup]="loginForm" (ngSubmit)="submitData()">
+        <div class="form-group">
+          <label for="fname">Email</label>
+          <input
+            type="email"
+            class="form-control"
+            formControlName="email"
+            [ngClass]="controls.email.valid ? 'is-valid' : ''"
+          />
+          <small
+            class="form-text text-danger"
+            *ngIf="
+              !controls.email.valid &&
+              (controls.email.dirty || controls.email.touched)
+            "
+            >This field is Required</small
+          >
+        </div>
+        <div class="form-group">
+          <label for="pass">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            formControlName="password"
+            [ngClass]="controls.password.valid ? 'is-valid' : ''"
+          />
+          <small
+            id="passHelp"
+            class="form-text text-danger"
+            *ngIf="
+              !controls.password.valid &&
+              (controls.password.dirty || controls.password.touched)
+            "
+            >This field is Required</small
+          >
+        </div>
+        <button
+          type="submit"
+          class="btn btn-primary mb-3"
+          [disabled]="!loginForm.valid"
+        >
+          <span
+            class="spinner-border spinner-border-sm"
+            role="status"
+            aria-hidden="true"
+            *ngIf="showLoader"
+          ></span>
+          Login
+        </button>
+        <span class="float-right">
+          New User <a routerLink="/">Signin Now</a>
+        </span>
+      </form>
+    </div>
+    <div class="col-md-3"></div>
+  </div>
+  <!-- Form Row End-->
+</div>

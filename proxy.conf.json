@@ -1,0 +1,6 @@
+{
+  "/api": {
+    "target": "https://design-backend.herokuapp.com/",
+    "secure": false
+  }
+}
