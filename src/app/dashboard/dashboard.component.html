@@ -1,16 +1,40 @@
+<navigation></navigation>
 <div class="container mt-5">
   <div class="row">
-    <div class="col-md-12">
-      <button class="btn btn-outline-danger float-right" (click)="logout()">
-        Logout
-      </button>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-3 border m-4" *ngFor="let user of userData">
-      <p>Name : {{ user.fname + " " + user.lname }}</p>
-      <p>Email : {{ user.email }}</p>
-      <p>Passion : {{ user.passion }}</p>
+    <div class="col-md-4 mb-4" *ngFor="let x of userData; let i = index">
+      <div class="card">
+        <img
+          src="http://localhost:3000/{{ x.image }}"
+          class="card-img-top"
+          alt=""
+        />
+        <div class="card-body">
+          <h5 class="card-title">{{ x.title }}</h5>
+          <p class="card-title">Category : {{ x.category }}</p>
+          <p class="card-text">
+            {{ x.description }}
+          </p>
+          <button
+            class="btn btn-outline-primary"
+            (click)="likePost(x._id, i)"
+            id="{{ x._id }}"
+            *ngIf="!x?.liked"
+          >
+            <i class="fas fa-heart"></i> Like
+          </button>
+
+          <p class="btn btn-outline-danger mb-0" *ngIf="x?.liked">
+            <i class="fas fa-heart"></i> Liked
+          </p>
+          <a
+            href="#!"
+            routerLink="/posts/{{ x._id }}"
+            class="btn btn-outline-primary float-right"
+          >
+            <i class="fas fa-eye"></i> View
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </div>

@@ -35,19 +35,28 @@ export class LoginComponent implements OnInit {
   submitData() {
     this.loader.display(true);
     this.http
-      .post(
-        this.proxy + "https://design-backend.herokuapp.com/login",
-        this.loginForm.value
-      )
+      .post("http://localhost:3000/login", this.loginForm.value)
       .toPromise()
       .then(data => {
+        console.log(data[0]["fname"]);
+        console.log(data);
+        localStorage.setItem("userName", data[0]["fname"] + data[0]["lname"]);
+        localStorage.setItem("userid", data[0]["_id"]);
+        localStorage.setItem("userEmail", data[0]["email"]);
+        localStorage.setItem("userPassword", data[0]["password"]);
         if (Object.keys(data).length <= 0) {
           this.showMessage = false;
+          this.loader.display(false);
         } else {
           this.showMessage = true;
           this.route.navigate(["dashboard"]);
         }
         this.loginForm.reset();
+        this.loader.display(false);
+      })
+      .catch(err => {
+        console.log(err);
+
         this.loader.display(false);
       });
   }

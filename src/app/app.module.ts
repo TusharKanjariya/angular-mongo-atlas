@@ -9,12 +9,20 @@ import { HttpClientModule } from "@angular/common/http";
 import { LoginComponent } from "./login/login.component";
 import { DashboardComponent } from "./dashboard/dashboard.component";
 import { LoaderService } from "./loader.service";
+import { NavigationComponent } from './navigation/navigation.component';
+import { PostUploadComponent } from './post-upload/post-upload.component';
+import { PostDetailComponent } from './post-detail/post-detail.component';
+import { FileDragDirective } from './file-drag.directive';
 @NgModule({
   declarations: [
     AppComponent,
     SignupComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    NavigationComponent,
+    PostUploadComponent,
+    PostDetailComponent,
+    FileDragDirective
   ],
   imports: [
     BrowserModule,

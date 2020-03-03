@@ -38,18 +38,20 @@ export class SignupComponent implements OnInit {
   submitData() {
     this.loader.display(true);
     let info = this.http
-      .post(
-        this.proxy + "https://design-backend.herokuapp.com/insert",
-        this.signupForm.value
-      )
+      .post("http://localhost:3000/signup", this.signupForm.value)
       .toPromise();
 
-    info.then(res => {
-      if (res["status"]) {
-        this.showStatus = res["status"];
-      }
-      this.signupForm.reset();
-      this.loader.display(false);
-    });
+    info
+      .then(res => {
+        if (res["status"]) {
+          this.showStatus = res["status"];
+        }
+        this.signupForm.reset();
+        this.loader.display(false);
+      })
+      .catch(err => {
+        console.log(err);
+        this.loader.display(false);
+      });
   }
 }

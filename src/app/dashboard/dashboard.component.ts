@@ -10,21 +10,46 @@ import { Router } from "@angular/router";
 export class DashboardComponent implements OnInit {
   constructor(private http: HttpClient, private route: Router) {}
   userData: any;
+
+  intex: any;
   ngOnInit() {
-    this.http
-      .get("https://design-backend.herokuapp.com/data")
-      .subscribe(val => {
-        if (val["loggedIn"] === false) {
-          this.route.navigate(["login"]);
-        }
-        this.userData = val;
-      });
+    this.getData().subscribe(val => {
+      if (sessionStorage.getItem("id")) {
+        this.route.navigate(["login"]);
+      }
+      this.userData = val;
+      this.checkLikes();
+    });
   }
 
-  logout() {
-    this.http
-      .get("https://design-backend.herokuapp.com/logout")
-      .subscribe(val => {});
-    this.route.navigate(["login"]);
+  checkLikes() {
+    let uid = localStorage.getItem("userid");
+    this.userData.map(val => {
+      let exist = val.likes.filter(ids => uid === ids);
+      if (exist.length !== 0) {
+        val.liked = true;
+      } else {
+        val.liked = false;
+      }
+    });
+    console.log(this.userData);
+  }
+
+  getData() {
+    return this.http.get("http://localhost:3000/data");
+  }
+
+  likePost(id, index) {
+    let userid = localStorage.getItem("userid");
+    let info = this.http
+      .post("http://localhost:3000/like", { id, userid })
+      .subscribe(val => {
+        this.userData[index].liked = true;
+        // this.getData().subscribe(val => {
+        //   this.userData = val;
+        //   this.checkLikes();
+        // });
+        // (document.getElementById(id) as HTMLInputElement).disabled = true;
+      });
   }
 }
