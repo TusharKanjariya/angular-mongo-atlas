@@ -47,7 +47,11 @@
       </div>
       <!-- Failed Alert -->
 
-      <form [formGroup]="signupForm" (ngSubmit)="submitData()">
+      <form
+        [formGroup]="signupForm"
+        (ngSubmit)="submitData()"
+        enctype="multipart/form-data"
+      >
         <div class="form-group">
           <label for="fname">First Name</label>
           <input
@@ -149,6 +153,16 @@
             "
             >Password length should be minimum 6 characters.</small
           >
+        </div>
+        <div class="form-group">
+          <label for="pass">Upload Image</label>
+          <div
+            class="jumbotron p-5"
+            appDnd
+            (fileDropped)="onFileDropped($event)"
+          >
+            <label class="display-4 text-black-50">Drop File Here</label>
+          </div>
         </div>
         <button
           type="submit"

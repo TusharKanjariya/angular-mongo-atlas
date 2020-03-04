@@ -1,0 +1,44 @@
+<navigation></navigation>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-4 bg-light p-3 text-center">
+      <h4>User Profile</h4>
+      <img
+        src="http://localhost:3000/profiles/{{ profileData?.image }}"
+        alt="{{ profileData?.fname }} {{ profileData?.lname }}"
+        class="rounded-circle"
+        width="150px"
+      />
+      <h5>{{ profileData?.fname }} {{ profileData?.lname }}</h5>
+      <p><span class="fas fa-envelope"></span> {{ profileData?.email }}</p>
+      <p><i class="fas fa-drafting-compass"></i> {{ profileData?.passion }}</p>
+      <button class="btn btn-primary">Follow</button>
+    </div>
+    <div class="col-md-8">
+      <h4>Posts</h4>
+      <div class="row">
+        <div
+          class="col-md-6 mb-4"
+          *ngFor="let x of profileData?.userPosts; let i = index"
+        >
+          <div class="card shadow-sm">
+            <img
+              src="http://localhost:3000/uploads/{{ x.image }}"
+              class="card-img-top"
+              alt="{{ x.title }}"
+            />
+            <div class="card-body">
+              <h5 class="card-title">{{ x.title }}</h5>
+              <p class="card-title">
+                Uploaded at {{ ISOtoRegularDate(x.date) }}
+              </p>
+              <!-- <p class="card-text">
+                {{ x.description }}
+              </p> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

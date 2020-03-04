@@ -24,8 +24,9 @@ export class PostDetailComponent implements OnInit {
     this.http
       .get("http://localhost:3000/singlePost/" + this.id)
       .subscribe(val => {
-        this.postDetail = val;
-        this.tags = val["tags"].split(",");
+        console.log(val);
+        this.postDetail = val[0];
+        this.tags = val[0]["tags"].split(",");
       });
   }
 }

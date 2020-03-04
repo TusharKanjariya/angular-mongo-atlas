@@ -17,6 +17,14 @@
           y
         }}</span>
       </div>
+      <h5 class="mt-3">
+        Uploaded By :
+        <a href="#!" routerLink="/profile/{{ postDetail?.Userid }}"
+          >{{ (postDetail?.userData)[0].fname }}
+          {{ (postDetail?.userData)[0].lname }}</a
+        >
+        <button class="ml-3 btn btn-sm btn-primary">Follow</button>
+      </h5>
     </div>
   </div>
 </div>

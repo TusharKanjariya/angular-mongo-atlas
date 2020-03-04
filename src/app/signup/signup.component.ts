@@ -14,6 +14,10 @@ export class SignupComponent implements OnInit {
   showLoader: boolean = false;
   showStatus: any;
   controls: any;
+  files: any;
+  showAlert: boolean = false;
+  showProgress: boolean = false;
+  progressValue: any = 0;
   // Signup Form Object
   signupForm = new FormGroup({
     fname: new FormControl("", [Validators.required]),
@@ -34,11 +38,40 @@ export class SignupComponent implements OnInit {
     });
   }
 
+  onFileDropped($event) {
+    if (
+      $event[0].type === "image/png" ||
+      $event[0].type === "image/jpg" ||
+      $event[0].type === "image/jpeg"
+    ) {
+      console.log($event);
+
+      this.showAlert = false;
+      let fileCollection = [];
+      for (const item of $event) {
+        fileCollection.push(item);
+      }
+      this.files = fileCollection[0];
+    } else {
+      this.files = false;
+      this.showAlert = true;
+    }
+  }
+
   // Form Submit Function
   submitData() {
     this.loader.display(true);
+    let data = this.signupForm.value;
+    let formData: FormData = new FormData();
+    formData.append("profile", this.files, this.files.name);
+    formData.append("fname", data.fname);
+    formData.append("lname", data.lname);
+    formData.append("email", data.email);
+    formData.append("password", data.password);
+    formData.append("passion", data.passion);
+
     let info = this.http
-      .post("http://localhost:3000/signup", this.signupForm.value)
+      .post("http://localhost:3000/signup", formData)
       .toPromise();
 
     info

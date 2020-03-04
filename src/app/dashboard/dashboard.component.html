@@ -2,37 +2,39 @@
 <div class="container mt-5">
   <div class="row">
     <div class="col-md-4 mb-4" *ngFor="let x of userData; let i = index">
-      <div class="card">
+      <div class="card h-100 shadow-sm">
         <img
           src="http://localhost:3000/{{ x.image }}"
           class="card-img-top"
-          alt=""
+          alt="{{ x.title }}"
         />
-        <div class="card-body">
+        <div class="card-body d-flex flex-column">
           <h5 class="card-title">{{ x.title }}</h5>
           <p class="card-title">Category : {{ x.category }}</p>
           <p class="card-text">
             {{ x.description }}
           </p>
-          <button
-            class="btn btn-outline-primary"
-            (click)="likePost(x._id, i)"
-            id="{{ x._id }}"
-            *ngIf="!x?.liked"
-          >
-            <i class="fas fa-heart"></i> Like
-          </button>
+          <div class="mt-auto">
+            <button
+              class="btn btn-outline-primary"
+              (click)="likePost(x._id, i)"
+              id="{{ x._id }}"
+              *ngIf="!x?.liked"
+            >
+              <i class="fas fa-heart"></i> Like
+            </button>
 
-          <p class="btn btn-outline-danger mb-0" *ngIf="x?.liked">
-            <i class="fas fa-heart"></i> Liked
-          </p>
-          <a
-            href="#!"
-            routerLink="/posts/{{ x._id }}"
-            class="btn btn-outline-primary float-right"
-          >
-            <i class="fas fa-eye"></i> View
-          </a>
+            <p class="btn btn-outline-danger mb-0" *ngIf="x?.liked">
+              <i class="fas fa-heart"></i> Liked
+            </p>
+            <a
+              href="#!"
+              routerLink="/posts/{{ x._id }}"
+              class="btn btn-outline-primary float-right"
+            >
+              <i class="fas fa-eye"></i> View
+            </a>
+          </div>
         </div>
       </div>
     </div>

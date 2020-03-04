@@ -13,6 +13,7 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { PostUploadComponent } from './post-upload/post-upload.component';
 import { PostDetailComponent } from './post-detail/post-detail.component';
 import { FileDragDirective } from './file-drag.directive';
+import { ProfileComponent } from './profile/profile.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +23,8 @@ import { FileDragDirective } from './file-drag.directive';
     NavigationComponent,
     PostUploadComponent,
     PostDetailComponent,
-    FileDragDirective
+    FileDragDirective,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

@@ -45,11 +45,6 @@ export class DashboardComponent implements OnInit {
       .post("http://localhost:3000/like", { id, userid })
       .subscribe(val => {
         this.userData[index].liked = true;
-        // this.getData().subscribe(val => {
-        //   this.userData = val;
-        //   this.checkLikes();
-        // });
-        // (document.getElementById(id) as HTMLInputElement).disabled = true;
       });
   }
 }
