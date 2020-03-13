@@ -12,7 +12,20 @@
       <h5>{{ profileData?.fname }} {{ profileData?.lname }}</h5>
       <p><span class="fas fa-envelope"></span> {{ profileData?.email }}</p>
       <p><i class="fas fa-drafting-compass"></i> {{ profileData?.passion }}</p>
-      <button class="btn btn-primary">Follow</button>
+      <button
+        class="ml-3 btn btn-primary"
+        (click)="followUser(profileData?._id)"
+        *ngIf="!followed"
+      >
+        Follow
+      </button>
+      <button
+        class="ml-3 btn btn-outline-primary"
+        *ngIf="followed"
+        (click)="unfollowUser(profileData?._id)"
+      >
+        Unfollow
+      </button>
     </div>
     <div class="col-md-8">
       <h4>Posts</h4>
@@ -28,13 +41,34 @@
               alt="{{ x.title }}"
             />
             <div class="card-body">
-              <h5 class="card-title">{{ x.title }}</h5>
-              <p class="card-title">
-                Uploaded at {{ ISOtoRegularDate(x.date) }}
-              </p>
-              <!-- <p class="card-text">
-                {{ x.description }}
-              </p> -->
+              <div class="row">
+                <div class="col-md-10">
+                  <h5 class="card-title">{{ x.title }}</h5>
+                  <p class="card-title">
+                    Uploaded at {{ ISOtoRegularDate(x.date) }}
+                  </p>
+                </div>
+                <div class="col-md-2" *ngIf="editOptions">
+                  <div class="dropdown float-right">
+                    <button
+                      class="btn"
+                      id="dropdownMenuButton"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                    <div
+                      class="dropdown-menu"
+                      aria-labelledby="dropdownMenuButton"
+                    >
+                      <a class="dropdown-item" href="#">Delete Post</a>
+                      <a class="dropdown-item" href="#">Edit Post</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

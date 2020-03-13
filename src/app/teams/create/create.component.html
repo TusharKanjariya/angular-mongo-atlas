@@ -1,0 +1,120 @@
+<navigation></navigation>
+<div class="container mt-5">
+  <!-- Header Row Start -->
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8 p-2 text-center bg-light">
+      <h3>Upload Post</h3>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+  <!-- Header Row Start End -->
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8 bg-light">
+      <div
+        class="alert alert-info alert-dismissible fade show"
+        role="alert"
+        *ngIf="showAlert"
+      >
+        <strong>Team Created Successfully.</strong>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form [formGroup]="postUploadForm" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="fname">Team Name</label>
+          <input
+            type="email"
+            class="form-control"
+            id="title"
+            aria-describedby="titleHelp"
+            formControlName="name"
+            [ngClass]="controls.name.valid ? 'is-valid' : ''"
+          />
+          <small
+            id="titleHelp"
+            class="form-text text-danger"
+            *ngIf="
+              !controls.name.valid &&
+              (controls.name.dirty || controls.name.touched)
+            "
+            >This field is Required</small
+          >
+        </div>
+      </form>
+      <div class="form-group">
+        <label for="exampleInputEmail1">Add users</label>
+        <input
+          type="email"
+          class="form-control"
+          id="exampleInputEmail1"
+          aria-describedby="emailHelp"
+          placeholder="Type Username"
+          [(ngModel)]="userSearch"
+        />
+      </div>
+      <ul class="list-unstyled bg-light p-2" *ngIf="userSearch">
+        <li
+          class="media"
+          *ngFor="let user of usersList | searchUsers: userSearch"
+          (click)="addUser(user)"
+        >
+          <img
+            class="mr-3 rounded-circle"
+            src="http://localhost:3000/profiles/{{ user?.image }}"
+            width="64px"
+            height="64px"
+          />
+          <div class="media-body">
+            <h5 class="mt-0 mb-1">{{ user?.fname }} {{ user?.lname }}</h5>
+            {{ user?.passion }}
+          </div>
+        </li>
+      </ul>
+      <ul class="list-inline">
+        <li
+          class="list-inline-item bg-light p-2 user-chip-rounded"
+          *ngFor="let added of addedusers; let i = index"
+        >
+          <img
+            class="rounded-circle"
+            src="http://localhost:3000/profiles/{{ added?.image }}"
+            width="38px"
+            height="38px"
+          />
+          <h6 class="ml-2 mt-2">{{ added?.fname }} {{ added?.lname }}</h6>
+          <a class="text-dark ml-2 mt-2" (click)="deleteUser(i)"
+            ><i class="fas fa-times"></i
+          ></a>
+        </li>
+      </ul>
+      <div class="form-group">
+        <label for="pass">Upload Image</label>
+        <div class="jumbotron p-5" appDnd (fileDropped)="onFileDropped($event)">
+          <label class="display-4 text-black-50">Drop File Here</label>
+        </div>
+      </div>
+      <button
+        type="submit"
+        class="btn btn-primary mb-3"
+        (click)="submitData()"
+        [disabled]="!postUploadForm.valid"
+      >
+        <span
+          class="spinner-border spinner-border-sm"
+          role="status"
+          aria-hidden="true"
+          *ngIf="showLoader"
+        ></span>
+        Upload Post
+      </button>
+    </div>
+  </div>
+</div>

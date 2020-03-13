@@ -1,0 +1,8 @@
+.user-chip-rounded {
+  border-radius: 50px !important;
+}
+.user-chip-rounded img,
+.user-chip-rounded h6,
+.user-chip-rounded a {
+  display: inline-block;
+}

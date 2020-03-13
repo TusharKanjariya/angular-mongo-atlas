@@ -32,7 +32,6 @@ export class DashboardComponent implements OnInit {
         val.liked = false;
       }
     });
-    console.log(this.userData);
   }
 
   getData() {

@@ -44,6 +44,8 @@ export class LoginComponent implements OnInit {
         localStorage.setItem("userid", data[0]["_id"]);
         localStorage.setItem("userEmail", data[0]["email"]);
         localStorage.setItem("userPassword", data[0]["password"]);
+        console.log(localStorage.getItem("userid"));
+
         if (Object.keys(data).length <= 0) {
           this.showMessage = false;
           this.loader.display(false);

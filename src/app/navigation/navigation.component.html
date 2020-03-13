@@ -1,5 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">Navbar</a>
+  <a class="navbar-brand" href="#!" routerLink="/dashboard"
+    >Designer Community</a
+  >
   <button
     class="navbar-toggler"
     type="button"
@@ -20,10 +22,85 @@
       <li class="nav-item">
         <a class="nav-link" routerLink="/post">Upload Post</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/teams/create">Create Team</a>
+      </li>
     </ul>
     <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="#!" (click)="logout()">{{ name }}</a>
+      <li class="nav-item dropdown">
+        <a
+          class="nav-link dropdown-toggle"
+          href="#"
+          id="navbarDropdown"
+          role="button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          <i class="fas fa-bell"></i>
+          <span class="badge" *ngIf="totalNot > 0">{{ totalNot }}</span>
+        </a>
+        <div
+          class="dropdown-menu dropdown-menu-right"
+          aria-labelledby="navbarDropdown"
+        >
+          <span
+            class="dropdown-item"
+            *ngFor="let not of notifications"
+            (click)="readNotification(not._id)"
+          >
+            <span class="text-danger" *ngIf="!not.read"
+              ><i class="fas fa-circle"></i
+            ></span>
+            {{ not?.message }}
+            <span *ngIf="not?.isTeamInvite">
+              <button
+                data-toggle="tooltip"
+                data-placement="bottom"
+                title="Accept Team Invitations"
+                class="btn btn-outline-primary"
+                (click)="
+                  acceptInvite(not._id, not.teamid, not.uid);
+                  $event.stopPropagation()
+                "
+              >
+                <i class="fas fa-check"></i>
+              </button>
+              <button
+                data-toggle="tooltip"
+                data-placement="bottom"
+                title="Reject Team Invitations"
+                class="btn btn-outline-danger"
+                (click)="
+                  rejectInvite(not._id, not.teamid, not.uid);
+                  $event.stopPropagation()
+                "
+              >
+                <i class="fas fa-times"></i>
+              </button>
+            </span>
+          </span>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a
+          class="nav-link dropdown-toggle"
+          href="#"
+          id="navbarDropdown"
+          role="button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          {{ name }}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#!" routerLink="/profile/{{ id }}"
+            >Profile</a
+          >
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#!" (click)="logout()">LogOut</a>
+        </div>
       </li>
     </ul>
   </div>
