@@ -20,7 +20,7 @@
         <a class="nav-link" routerLink="/dashboard">Home</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/post">Upload Post</a>
+        <a class="nav-link" routerLink="/post/user">Upload Post</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" routerLink="/teams/create">Create Team</a>
@@ -94,9 +94,15 @@
         >
           {{ name }}
         </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <div
+          class="dropdown-menu dropdown-menu-right"
+          aria-labelledby="navbarDropdown"
+        >
           <a class="dropdown-item" href="#!" routerLink="/profile/{{ id }}"
             >Profile</a
+          >
+          <a href="#!" class="dropdown-item" routerLink="/teams/myteams"
+            >My Teams</a
           >
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="#!" (click)="logout()">LogOut</a>

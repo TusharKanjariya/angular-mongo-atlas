@@ -2,14 +2,18 @@ import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { HttpClient } from "@angular/common/http";
 import { LoaderService } from "../loader.service";
-
+import { ActivatedRoute } from "@angular/router";
 @Component({
   selector: "app-post-upload",
   templateUrl: "./post-upload.component.html",
   styleUrls: ["./post-upload.component.css"]
 })
 export class PostUploadComponent implements OnInit {
-  constructor(private http: HttpClient, public loader: LoaderService) {}
+  constructor(
+    private http: HttpClient,
+    public loader: LoaderService,
+    private route: ActivatedRoute
+  ) {}
   showLoader: boolean = false;
   showStatus: any;
   controls: any;
@@ -17,6 +21,7 @@ export class PostUploadComponent implements OnInit {
   showAlert: boolean = false;
   showProgress: boolean = false;
   progressValue: any = 0;
+  isTeamPost: any;
   // Signup Form Object
   postUploadForm = new FormGroup({
     title: new FormControl("", [Validators.required]),
@@ -26,6 +31,9 @@ export class PostUploadComponent implements OnInit {
   });
 
   ngOnInit(): void {
+    this.route.params.subscribe(param => {
+      this.isTeamPost = param.type;
+    });
     this.controls = this.postUploadForm.controls;
     this.loader.status.subscribe((val: boolean) => {
       this.showLoader = val;
@@ -55,15 +63,28 @@ export class PostUploadComponent implements OnInit {
   submitData() {
     this.loader.display(true);
     let data = this.postUploadForm.value;
+    let formData: FormData;
     // let tags = data.tags.split(",");
-    let userId = localStorage.getItem("userid");
-    let formData: FormData = new FormData();
-    formData.append("image", this.files, this.files.name);
-    formData.append("userId", userId);
-    formData.append("title", data.title);
-    formData.append("desc", data.desc);
-    formData.append("tags", data.tags);
-    formData.append("category", data.category);
+    if (this.isTeamPost === "user") {
+      let userId = localStorage.getItem("userid");
+      formData = new FormData();
+      formData.append("image", this.files, this.files.name);
+      formData.append("userId", userId);
+      formData.append("title", data.title);
+      formData.append("desc", data.desc);
+      formData.append("tags", data.tags);
+      formData.append("category", data.category);
+    } else {
+      let userId = localStorage.getItem("userid");
+      formData = new FormData();
+      formData.append("image", this.files, this.files.name);
+      formData.append("userId", userId);
+      formData.append("title", data.title);
+      formData.append("desc", data.desc);
+      formData.append("tags", data.tags);
+      formData.append("category", data.category);
+      formData.append("teamid", this.isTeamPost);
+    }
 
     let info = this.http
       .post("http://localhost:3000/postUpload", formData)

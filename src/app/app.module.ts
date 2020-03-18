@@ -16,6 +16,8 @@ import { FileDragDirective } from "./file-drag.directive";
 import { ProfileComponent } from "./profile/profile.component";
 import { CreateComponent } from './teams/create/create.component';
 import { SearchUsersPipe } from './teams/search-users.pipe';
+import { MyTeamsComponent } from './teams/my-teams/my-teams.component';
+import { TeamComponent } from './teams/team/team.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +30,9 @@ import { SearchUsersPipe } from './teams/search-users.pipe';
     FileDragDirective,
     ProfileComponent,
     CreateComponent,
-    SearchUsersPipe
+    SearchUsersPipe,
+    MyTeamsComponent,
+    TeamComponent
   ],
   imports: [
     BrowserModule,

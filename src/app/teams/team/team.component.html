@@ -1,0 +1,74 @@
+<navigation></navigation>
+<div class="container mt-5">
+  <div class="d-flex justify-content-center" *ngIf="displayData">
+    <div class="spinner-border" role="status"></div>
+  </div>
+  <div class="row rounded" *ngIf="!displayData">
+    <div class="col-md-5 bg-light text-center p-3">
+      <img
+        src="http://localhost:3000/profiles/{{ teamData?.image }}"
+        alt="{{ teamData?.name }}"
+        width="100"
+        class="rounded-circle"
+      />
+      <h3>{{ teamData?.name }}</h3>
+      <p class="lead">{{ teamData?.teamMembers.length }} Members</p>
+      <button class="btn btn-primary" *ngIf="isAdmin === 0; else showThis">
+        Follow
+      </button>
+      <ng-template #showThis>
+        <a
+          href="#!"
+          routerLink="/post/{{ teamData?._id }}"
+          class="btn btn-primary"
+        >
+          Upload Post
+        </a>
+      </ng-template>
+      <hr />
+      <h4>Members</h4>
+      <ul class="list-unstyled mt-3">
+        <li class="media mb-2" *ngFor="let team of teamData?.teamMembers">
+          <img
+            src="http://localhost:3000/profiles/{{ team.image }}"
+            class="mr-3"
+            alt="{{ team.fname }} {{ team.lname }}"
+            width="64px"
+            height="64px"
+            class="rounded-circle"
+          />
+          <div class="media-body">
+            <div class="row">
+              <div class="col-md-8">
+                <h5 class="mb-1">
+                  {{ team.fname }} {{ team.lname }}
+                  <span
+                    class="badge badge-info badge-pill"
+                    *ngIf="teamData?.admin == team._id"
+                    >Admin</span
+                  >
+                </h5>
+                <p>
+                  {{ team?.passion }}
+                </p>
+              </div>
+              <div class="col-md-4">
+                <a
+                  href="#!"
+                  routerLink="/profile/{{ team._id }}"
+                  class="mt-2 btn rounded-pill btn-sm btn-outline-primary"
+                >
+                  View Profile
+                </a>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-7 p-3">
+      <h3 *ngIf="!noPost">Team Posts</h3>
+      <h1 *ngIf="noPost" class="text-secondary">No Post Yet</h1>
+    </div>
+  </div>
+</div>

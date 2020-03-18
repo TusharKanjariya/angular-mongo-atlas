@@ -8,6 +8,8 @@ import { PostDetailComponent } from "./post-detail/post-detail.component";
 import { ProfileComponent } from "./profile/profile.component";
 import { AuthService } from "./auth.service";
 import { CreateComponent } from "./teams/create/create.component";
+import { MyTeamsComponent } from "./teams/my-teams/my-teams.component";
+import { TeamComponent } from "./teams/team/team.component";
 
 const routes: Routes = [
   { path: "", component: SignupComponent },
@@ -17,7 +19,11 @@ const routes: Routes = [
     component: DashboardComponent,
     canActivate: [AuthService]
   },
-  { path: "post", component: PostUploadComponent, canActivate: [AuthService] },
+  {
+    path: "post/:type",
+    component: PostUploadComponent,
+    canActivate: [AuthService]
+  },
   {
     path: "posts/:id",
     component: PostDetailComponent,
@@ -29,8 +35,18 @@ const routes: Routes = [
     canActivate: [AuthService]
   },
   {
+    path: "team/:tid",
+    component: TeamComponent,
+    canActivate: [AuthService]
+  },
+  {
     path: "teams/create",
     component: CreateComponent,
+    canActivate: [AuthService]
+  },
+  {
+    path: "teams/myteams",
+    component: MyTeamsComponent,
     canActivate: [AuthService]
   }
 ];
