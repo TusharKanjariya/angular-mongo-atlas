@@ -18,7 +18,14 @@
         }}</span>
       </div>
       <h5 class="mt-3">
-        Uploaded By :
+        Uploaded
+        <span *ngIf="teamData"
+          >in Team
+          <a href="#!" routerLink="/team/{{ teamData?._id }}">{{
+            teamData?.name
+          }}</a></span
+        >
+        by
         <a href="#!" routerLink="/profile/{{ postDetail?.Userid }}"
           >{{ (postDetail?.userData)[0].fname }}
           {{ (postDetail?.userData)[0].lname }}</a

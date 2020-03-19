@@ -13,6 +13,11 @@ export class ProfileComponent implements OnInit {
   profileData: any;
   followed: boolean = false;
   editOptions = false;
+  title = "";
+  description = "";
+  category = "";
+  files: any;
+  postID: any;
 
   ISOtoRegularDate(date) {
     date = new Date(date);
@@ -37,6 +42,10 @@ export class ProfileComponent implements OnInit {
       }
     });
 
+    this.getAllData();
+  }
+
+  getAllData() {
     this.http.get("http://localhost:3000/profile/" + this.id).subscribe(val => {
       console.log(val);
       this.profileData = val[0];
@@ -86,5 +95,59 @@ export class ProfileComponent implements OnInit {
       console.log(val);
     });
     this.followed = false;
+  }
+
+  removePost(id) {
+    this.http
+      .delete("http://localhost:3000/deletePost/" + id)
+      .subscribe(val => {
+        this.getAllData();
+        console.log(val);
+      });
+  }
+
+  getFiles(e) {
+    let f = e.target.files;
+    this.files = f[0];
+    console.log(this.files);
+  }
+
+  sendData(post) {
+    this.title = post.title;
+    this.description = post.description;
+    this.category = post.category;
+    this.postID = post._id;
+  }
+
+  editPost() {
+    if (this.files) {
+      console.log("if");
+      let formData: FormData = new FormData();
+      formData.append("image", this.files, this.files.name);
+      formData.append("title", this.title);
+      formData.append("description", this.description);
+      formData.append("category", this.category);
+      formData.append("pid", this.postID);
+
+      this.http
+        .post("http://localhost:3000/editPost", formData)
+        .subscribe(val => {
+          console.log(val);
+          this.getAllData();
+        });
+    } else {
+      console.log("Else");
+      let data = {
+        pid: this.postID,
+        title: this.title,
+        description: this.description,
+        category: this.category,
+        upload: true
+      };
+      this.http.post("http://localhost:3000/editPost", data).subscribe(val => {
+        console.log(val);
+        this.getAllData();
+      });
+    }
   }
 }

@@ -22,6 +22,7 @@ export class PostDetailComponent implements OnInit {
   postDetail: any;
   tags = [];
   followed: boolean = false;
+  teamData: any;
   ngOnInit(): void {}
 
   getComments(postid) {
@@ -38,6 +39,13 @@ export class PostDetailComponent implements OnInit {
       .subscribe(val => {
         this.postDetail = val[0];
         this.tags = val[0]["tags"].split(",");
+        if (val[0].teamid) {
+          this.http
+            .get("http://localhost:3000/teams/team/" + val[0].teamid)
+            .subscribe(team => {
+              this.teamData = team[0];
+            });
+        }
         this.http
           .get(
             "http://localhost:3000/profile/" + localStorage.getItem("userid")
